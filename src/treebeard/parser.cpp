@@ -13,7 +13,6 @@ namespace treebeard
   {
     TREEBEARD_ASSERT(option_root != nullptr);
 
-
     const tokenize_result& tokenized_line = tokenize(line);
     return match_result::flatten_completions(
       option_root->find_matches(tokenized_line.next_token,
