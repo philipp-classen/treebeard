@@ -83,7 +83,9 @@ namespace
     {
       // state resetted -> begin with the first match
       pos = 0;
-      options = libedit_input_instance->find_all_matches(text);
+      std::string complete_line_to_cursor(rl_line_buffer, rl_point);
+      options = libedit_input_instance->find_all_matches(
+        std::move(complete_line_to_cursor));
     }
 
     while(pos < options.size())

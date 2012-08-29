@@ -112,7 +112,7 @@ namespace treebeard
     const std::string& current_token, const std::string& lookahead) const
   {
     match_result result;
-    if(boost::starts_with(fixed_string, current_token))
+    if(lookahead.empty() && boost::starts_with(fixed_string, current_token))
     {
       const bool is_complete = fixed_string == current_token;
       result.add_matches(
