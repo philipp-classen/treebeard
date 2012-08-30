@@ -1,5 +1,5 @@
-#include "parser.h"
-#include "option_tree.h"
+#include "treebeard/parser.h"
+#include "treebeard/option_tree.h"
 
 #include <boost/algorithm/string/predicate.hpp>
 

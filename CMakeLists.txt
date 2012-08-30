@@ -14,6 +14,8 @@ add_definitions(-std=c++11 -g -Wall -DTREEBEARD_HAVE_EDITLINE)
 
 set (TREEBEARD_SRC
      src/treebeard.h
+     src/treebeard/builders.h
+     src/treebeard/builders.cpp
      src/treebeard/common.h
      src/treebeard/exceptions.h
      src/treebeard/input.h
