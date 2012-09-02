@@ -1,3 +1,8 @@
+//
+// Currently, the whole example makes no sense.
+// This is OK, as it just serves as a sandbox to improve the syntax.
+//
+
 #include <iostream>
 #include <treebeard.h>
 #include <initializer_list>
@@ -15,8 +20,12 @@ std::unique_ptr<option_tree> create_options_regression()
 
 std::unique_ptr<option_tree> create_options()
 {
-  return one_of("help", "quit",
-		concat("echo", one_of("on", "off")));
+  return one_of("help",
+		"quit",
+		concat("echo", one_of("on",
+				      "off")
+		       )
+		);
 }
 
 int main()
