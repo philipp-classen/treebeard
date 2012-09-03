@@ -11,6 +11,7 @@
 using treebeard::option_tree;
 using treebeard::one_of;
 using treebeard::concat;
+using treebeard::file;
 
 std::unique_ptr<option_tree> create_options_regression()
 {
@@ -24,7 +25,9 @@ std::unique_ptr<option_tree> create_options()
 		"quit",
 		concat("echo", one_of("on",
 				      "off")
-		       )
+		       ),
+		concat("cat", file(".pdf")),
+		concat("show", concat("pdf", file(".pdf")))
 		);
 }
 

@@ -4,9 +4,11 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <type_traits>
 
 #include "treebeard/common.h"
 #include "treebeard/option_tree.h"
+#include "treebeard/file_option.h"
 
 namespace treebeard
 {
@@ -18,16 +20,34 @@ namespace treebeard
 
   template <typename Arg1, typename Arg2>
   std::unique_ptr<option_tree> concat(Arg1 predecessor, Arg2 successor);
+  template <typename Arg1, typename... Args>
+  std::unique_ptr<option_tree> concat(Arg1 predecessor, Args... successors);
 
   std::unique_ptr<option_tree> make_option_tree(const char* value);
   std::unique_ptr<option_tree> make_option_tree(const std::string& value);
-  std::unique_ptr<option_tree> make_option_tree(
-    std::unique_ptr<option_tree>&& value);
+
+  template <typename Arg1>
+  typename std::enable_if<std::is_base_of<option_tree, Arg1>::value,
+    std::unique_ptr<option_tree>>::type make_option_tree(
+    std::unique_ptr<Arg1>&& value)
+  {
+    return std::move(value);
+  }
 
   std::unique_ptr<option_leaf> make_option_leaf(const char* value);
   std::unique_ptr<option_leaf> make_option_leaf(const std::string& value);
   std::unique_ptr<option_leaf> make_option_leaf(
     std::unique_ptr<option_leaf>&& value);
+  template <typename Arg1>
+  typename std::enable_if<std::is_base_of<option_leaf, Arg1>::value,
+    std::unique_ptr<option_leaf>>::type make_option_leaf(
+    std::unique_ptr<Arg1>&& value)
+  {
+    return std::move(value);
+  }
+
+  template <typename... Args>
+  std::unique_ptr<file_option_leaf> file(Args... filter);
 
   // ------------ implementation ------------
 
@@ -69,6 +89,19 @@ namespace treebeard
     return std::unique_ptr<option_tree>(new consecutive_option_tree(
       std::move(make_option_leaf(std::forward<Arg1>(predecessor))),
       std::move(make_option_tree(std::forward<Arg2>(successor)))));
+  }
+
+  template <typename Arg1, typename... Args>
+  std::unique_ptr<option_tree> concat(Arg1 predecessor, Args... successors)
+  {
+    return concat(predecessor, concat(successors...));
+  }
+
+  template <typename... Args>
+  std::unique_ptr<file_option_leaf> file(Args... filter)
+  {
+    return std::unique_ptr<file_option_leaf>(
+      new file_option_leaf(std::forward<Args...>(filter...)));
   }
 
 } // end namespace treebeard

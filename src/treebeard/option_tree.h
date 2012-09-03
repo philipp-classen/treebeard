@@ -72,6 +72,12 @@ namespace treebeard
 
   };
 
+  class dynamic_option_leaf : public option_leaf
+  {
+  public:
+    virtual ~dynamic_option_leaf() = 0;
+  };
+
   class fixed_string_option_leaf : public option_leaf
   {
   public:

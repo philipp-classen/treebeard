@@ -26,12 +26,6 @@ namespace treebeard
     return std::unique_ptr<option_tree>(new fixed_string_option_leaf(value));
   }
 
-  std::unique_ptr<option_tree> make_option_tree(
-    std::unique_ptr<option_tree>&& value)
-  {
-    return std::move(value);
-  }
-
   // ----------------------------------------------------------------------
 
   std::unique_ptr<option_leaf> make_option_leaf(const char* value)
@@ -42,12 +36,6 @@ namespace treebeard
   std::unique_ptr<option_leaf> make_option_leaf(const std::string& value)
   {
     return std::unique_ptr<option_leaf>(new fixed_string_option_leaf(value));
-  }
-
-  std::unique_ptr<option_leaf> make_option_leaf(
-    std::unique_ptr<option_leaf>&& value)
-  {
-    return std::move(value);
   }
 
 

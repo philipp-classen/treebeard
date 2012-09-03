@@ -6,7 +6,7 @@
 
 #ifdef TREEBEARD_HAVE_EDITLINE
   #include <editline/readline.h>
-  #include <editline/history.h>
+  //#include <editline/history.h>
 
   #include <boost/algorithm/string/predicate.hpp>
   #include <cstring>
@@ -76,10 +76,7 @@ namespace
     static std::vector<std::string> options;
     static size_t pos = 0;
 
-    // FIXME:??
-    // TREEBEARD_STATIC_ASSERT(RL_STATE_NONE == 0);
-    // if(state == RL_STATE_NONE)
-    if(state == 0)
+    if(state == 0 /*RL_STATE_NONE*/)
     {
       // state resetted -> begin with the first match
       pos = 0;

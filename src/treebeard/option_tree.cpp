@@ -5,6 +5,7 @@
 
 namespace
 {
+  // TODO: Duplicated file_option <-> option_tree.cpp
   std::string indent(int current_level)
   {
     TREEBEARD_ASSERT(current_level >= 0);
@@ -79,6 +80,12 @@ namespace treebeard
   // ----------------------------------------------------------------------
 
   option_leaf::~option_leaf()
+  {
+  }
+
+  // ----------------------------------------------------------------------
+
+  dynamic_option_leaf::~dynamic_option_leaf()
   {
   }
 
